@@ -1,0 +1,455 @@
+/* ==========================================================================
+   HOJA DE ESTILOS - TEMÁTICA INGENIERÍA INDUSTRIAL
+   Archivo: colores.css
+   Paleta original conservada; diseño renovado (tipografía, menú fijo,
+   tarjetas, tablas, numeración de secciones y franja de seguridad).
+   ========================================================================== */
+
+:root {
+    /* Paleta de colores industrial */
+    --bg-primary: #07121f;          /* Fondo principal azul muy oscuro */
+    --bg-secondary: #0d2338;        /* Fondo de tarjetas y secciones */
+    --bg-tertiary: #12304d;         /* Elementos elevados */
+
+    --accent-amber: #ffb020;        /* Ámbar - advertencia / energía */
+    --accent-cyan: #29d3ff;         /* Cian - datos / tecnología */
+    --accent-green: #3ddc84;        /* Verde - calidad aprobada */
+
+    --text-primary: #f0f4f8;        /* Texto principal */
+    --text-secondary: #b6c6d8;      /* Texto secundario */
+
+    --border-color: rgba(255, 176, 32, 0.30);
+    --border-hover: rgba(255, 176, 32, 0.80);
+    --glow-amber: 0 0 14px rgba(255, 176, 32, 0.45);
+    --glow-cyan: 0 0 14px rgba(41, 211, 255, 0.45);
+
+    /* Tipografía */
+    --font-titulos: 'Barlow Condensed', 'Arial Narrow', Impact, sans-serif;
+    --font-texto: 'Barlow', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+
+    /* Ancho del contenido */
+    --ancho: 1040px;
+    --margen-lateral: max(20px, calc((100% - var(--ancho)) / 2));
+}
+
+/* Base */
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    margin: 0;
+    background-color: var(--bg-primary);
+    /* Cuadrícula tipo plano técnico */
+    background-image:
+        linear-gradient(rgba(41, 211, 255, 0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(41, 211, 255, 0.045) 1px, transparent 1px);
+    background-size: 36px 36px;
+    color: var(--text-primary);
+    font-family: var(--font-texto);
+    font-size: 1.06rem;
+    line-height: 1.75;
+}
+
+/* Encabezado ------------------------------------------------------------- */
+header {
+    position: relative;
+    padding: 44px var(--margen-lateral) 34px;
+    background:
+        radial-gradient(circle at 92% 20%, rgba(41, 211, 255, 0.18), transparent 45%),
+        linear-gradient(120deg, var(--bg-tertiary), var(--bg-primary));
+    text-align: left;
+}
+
+/* Franja de seguridad ámbar/negro */
+header::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 10px;
+    background: repeating-linear-gradient(
+        -45deg,
+        var(--accent-amber) 0 14px,
+        #07121f 14px 28px
+    );
+}
+
+header .kicker {
+    margin: 0;
+    color: var(--accent-cyan);
+    font-family: var(--font-titulos);
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+}
+
+header h1 {
+    margin: 4px 0 6px;
+    font-family: var(--font-titulos);
+    font-size: clamp(2.6rem, 7vw, 4.6rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    background: linear-gradient(100deg, var(--accent-amber) 20%, var(--accent-cyan));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+header .lema {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 1.15rem;
+}
+
+/* Menú de navegación (fijo arriba) ---------------------------------------- */
+nav.menu {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background-color: rgba(7, 18, 31, 0.92);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border-color);
+    padding: 0 var(--margen-lateral);
+}
+
+nav.menu ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+nav.menu li { margin: 0; }
+
+nav.menu a {
+    display: block;
+    padding: 14px 12px 12px;
+    border-bottom: 3px solid transparent;
+    color: var(--text-secondary);
+    font-family: var(--font-titulos);
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+nav.menu a:hover {
+    color: var(--text-primary);
+    background-color: rgba(255, 176, 32, 0.10);
+    border-bottom-color: var(--accent-amber);
+}
+
+nav.menu a[aria-current="page"] {
+    color: var(--accent-amber);
+    border-bottom-color: var(--accent-amber);
+}
+
+/* Contenido principal ------------------------------------------------------ */
+main {
+    max-width: var(--ancho);
+    margin: 0 auto;
+    padding: 36px 22px 56px;
+    counter-reset: seccion;
+}
+
+main > img {
+    display: block;
+    width: 100%;
+    max-height: 380px;
+    object-fit: cover;
+    margin: 20px 0 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    box-shadow: 10px 10px 0 rgba(255, 176, 32, 0.14), 0 12px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Título principal de cada página */
+main h1 {
+    margin: 0 0 8px;
+    padding-bottom: 10px;
+    font-family: var(--font-titulos);
+    font-size: clamp(2rem, 5vw, 3.1rem);
+    font-weight: 700;
+    line-height: 1.1;
+    text-transform: uppercase;
+    color: var(--text-primary);
+    border-bottom: 2px solid var(--border-color);
+}
+
+/* Subtítulos numerados automáticamente: 01, 02, 03... */
+main h2 {
+    counter-increment: seccion;
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin: 48px 0 12px;
+    font-family: var(--font-titulos);
+    font-size: 1.9rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--text-primary);
+}
+
+main h2::before {
+    content: counter(seccion, decimal-leading-zero);
+    flex: none;
+    padding: 2px 9px;
+    background-color: var(--accent-amber);
+    color: #07121f;
+    font-size: 1.15rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    clip-path: polygon(0 0, 100% 0, 100% 70%, 85% 100%, 0 100%);
+}
+
+h3 {
+    margin: 26px 0 4px;
+    font-family: var(--font-titulos);
+    font-size: 1.45rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: var(--accent-cyan);
+}
+
+p { color: var(--text-secondary); }
+
+ul, ol { padding-left: 1.4rem; }
+
+li {
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+}
+
+li::marker {
+    color: var(--accent-amber);
+    font-weight: bold;
+}
+
+strong { color: var(--text-primary); }
+
+/* Enlaces ------------------------------------------------------------------ */
+a {
+    color: var(--accent-cyan);
+    transition: all 0.25s ease;
+}
+
+a:hover { color: var(--accent-amber); }
+
+/* Portada: imagen principal ------------------------------------------------ */
+.hero {
+    margin: 24px 0 8px;
+}
+
+.hero img {
+    display: block;
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    box-shadow: 10px 10px 0 rgba(41, 211, 255, 0.14), 0 12px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Portada: tarjetas de las seis áreas ------------------------------------- */
+.areas {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 22px;
+    margin-top: 22px;
+}
+
+.tarjeta {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-top: 4px solid var(--accent-amber);
+    border-radius: 6px;
+    transition: all 0.25s ease;
+}
+
+.tarjeta:nth-child(even) { border-top-color: var(--accent-cyan); }
+
+.tarjeta:hover {
+    transform: translateY(-6px);
+    border-color: var(--border-hover);
+    box-shadow: var(--glow-amber);
+}
+
+.tarjeta img {
+    display: block;
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+}
+
+.tarjeta .cuerpo {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 6px 20px 20px;
+}
+
+.tarjeta h3 {
+    margin-top: 14px;
+    color: var(--text-primary);
+}
+
+.tarjeta p {
+    flex: 1;
+    margin: 6px 0 16px;
+    font-size: 0.98rem;
+    line-height: 1.6;
+}
+
+.tarjeta .btn-link {
+    align-self: flex-start;
+    padding: 7px 16px;
+    border: 1px solid var(--accent-amber);
+    border-radius: 3px;
+    color: var(--accent-amber);
+    font-family: var(--font-titulos);
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.tarjeta .btn-link::after { content: "  →"; }
+
+.tarjeta .btn-link:hover {
+    background-color: var(--accent-amber);
+    color: #07121f;
+    box-shadow: var(--glow-amber);
+}
+
+/* Tablas ------------------------------------------------------------------- */
+table {
+    width: 100%;
+    margin: 16px 0;
+    border-collapse: collapse;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 12px 16px;
+    border: 0;
+    border-bottom: 1px solid var(--border-color);
+    vertical-align: top;
+    text-align: left;
+}
+
+th {
+    background-color: var(--bg-tertiary);
+    color: var(--accent-amber);
+    font-family: var(--font-titulos);
+    font-size: 1.1rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    border-bottom: 2px solid var(--accent-amber);
+}
+
+td { color: var(--text-secondary); }
+
+td:first-child {
+    color: var(--text-primary);
+    font-weight: 600;
+    border-right: 1px solid var(--border-color);
+}
+
+tr:nth-child(even) td { background-color: rgba(255, 255, 255, 0.025); }
+
+tr:hover td { background-color: rgba(41, 211, 255, 0.09); }
+
+/* Formulario --------------------------------------------------------------- */
+form {
+    margin-top: 12px;
+    padding: 24px 26px 10px;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-left: 5px solid var(--accent-cyan);
+    border-radius: 6px;
+}
+
+label {
+    color: var(--accent-amber);
+    font-weight: 600;
+}
+
+input[type="text"], input[type="email"], textarea {
+    width: 100%;
+    max-width: 620px;
+    margin: 4px 0 14px;
+    padding: 10px 12px;
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font: inherit;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: var(--accent-cyan);
+    box-shadow: var(--glow-cyan);
+}
+
+button, input[type="submit"] {
+    padding: 11px 26px;
+    background: linear-gradient(135deg, var(--accent-amber), #ff7a18);
+    color: #07121f;
+    border: none;
+    border-radius: 4px;
+    font-family: var(--font-titulos);
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+button:hover, input[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--glow-amber);
+}
+
+/* Pie de página ------------------------------------------------------------ */
+footer {
+    width: 100%;
+    padding: 28px var(--margen-lateral);
+    background-color: var(--bg-secondary);
+    border-top: 4px solid var(--accent-cyan);
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+footer p { margin: 2px 0; }
+
+/* Pantallas pequeñas ------------------------------------------------------- */
+@media (max-width: 700px) {
+    header { padding-top: 30px; }
+    nav.menu ul { flex-wrap: nowrap; overflow-x: auto; }
+    nav.menu a { white-space: nowrap; padding: 12px 12px 10px; font-size: 1rem; }
+    main h2 { font-size: 1.55rem; }
+    table { display: block; overflow-x: auto; }
+    th, td { font-size: 0.9rem; padding: 8px; }
+    form { padding: 18px 16px 6px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; scroll-behavior: auto !important; }
+}
